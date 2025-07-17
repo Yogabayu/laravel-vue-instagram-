@@ -1,0 +1,229 @@
+{
+  "VAvatar.css": {
+    "file": "assets/VAvatar-5ea551b8.css",
+    "src": "VAvatar.css"
+  },
+  "VImg.css": {
+    "file": "assets/VImg-b8589eee.css",
+    "src": "VImg.css"
+  },
+  "VInput.css": {
+    "file": "assets/VInput-10096484.css",
+    "src": "VInput.css"
+  },
+  "_404-5a708e65.js": {
+    "assets": [
+      "assets/404-df5d1da7.png"
+    ],
+    "file": "assets/404-5a708e65.js",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_VAvatar-e4849550.js": {
+    "css": [
+      "assets/VAvatar-5ea551b8.css"
+    ],
+    "file": "assets/VAvatar-e4849550.js",
+    "imports": [
+      "resources/js/main.js",
+      "_VImg-571ed956.js"
+    ]
+  },
+  "_VImg-571ed956.js": {
+    "css": [
+      "assets/VImg-b8589eee.css"
+    ],
+    "file": "assets/VImg-571ed956.js",
+    "imports": [
+      "resources/js/main.js"
+    ]
+  },
+  "_VInput-bf2fd736.js": {
+    "css": [
+      "assets/VInput-10096484.css"
+    ],
+    "file": "assets/VInput-bf2fd736.js",
+    "imports": [
+      "resources/js/main.js",
+      "_VAvatar-e4849550.js",
+      "_VImg-571ed956.js"
+    ]
+  },
+  "_VTextField-4a700095.js": {
+    "file": "assets/VTextField-4a700095.js",
+    "imports": [
+      "resources/js/main.js",
+      "_VInput-bf2fd736.js",
+      "_VImg-571ed956.js"
+    ]
+  },
+  "__plugin-vue_export-helper-c27b6911.js": {
+    "file": "assets/_plugin-vue_export-helper-c27b6911.js"
+  },
+  "_webfontloader-dec523bb.js": {
+    "file": "assets/webfontloader-dec523bb.js",
+    "imports": [
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true
+  },
+  "resources/images/pages/404.png": {
+    "file": "assets/404-df5d1da7.png",
+    "src": "resources/images/pages/404.png"
+  },
+  "resources/js/layouts/admin/default.css": {
+    "file": "assets/default-7faaa505.css",
+    "src": "resources/js/layouts/admin/default.css"
+  },
+  "resources/js/layouts/admin/default.vue": {
+    "css": [
+      "assets/default-7faaa505.css"
+    ],
+    "file": "assets/default-714d5307.js",
+    "imports": [
+      "_VAvatar-e4849550.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/main.js",
+      "_VInput-bf2fd736.js",
+      "_VImg-571ed956.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/layouts/admin/default.vue"
+  },
+  "resources/js/layouts/blank.css": {
+    "file": "assets/blank-3fac9ebf.css",
+    "src": "resources/js/layouts/blank.css"
+  },
+  "resources/js/layouts/blank.vue": {
+    "css": [
+      "assets/blank-3fac9ebf.css"
+    ],
+    "file": "assets/blank-245636fb.js",
+    "imports": [
+      "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/layouts/blank.vue"
+  },
+  "resources/js/main.css": {
+    "file": "assets/main-d0486166.css",
+    "src": "resources/js/main.css"
+  },
+  "resources/js/main.js": {
+    "css": [
+      "assets/main-d0486166.css"
+    ],
+    "dynamicImports": [
+      "_webfontloader-dec523bb.js",
+      "resources/js/layouts/blank.vue",
+      "resources/js/pages/user/dashboard.vue",
+      "resources/js/layouts/blank.vue",
+      "resources/js/pages/auth/register.vue",
+      "resources/js/layouts/blank.vue",
+      "resources/js/pages/auth/login.vue",
+      "resources/js/layouts/blank.vue",
+      "resources/js/pages/[...all].vue",
+      "resources/js/layouts/blank.vue",
+      "resources/js/pages/auth/unauthorized.vue",
+      "resources/js/layouts/admin/default.vue",
+      "resources/js/pages/user/dashboard.vue"
+    ],
+    "file": "assets/main-eac025ea.js",
+    "isEntry": true,
+    "src": "resources/js/main.js"
+  },
+  "resources/js/pages/[...all].css": {
+    "file": "assets/_...all_-2baf21ec.css",
+    "src": "resources/js/pages/auth/unauthorized.css"
+  },
+  "resources/js/pages/[...all].vue": {
+    "css": [
+      "assets/_...all_-2baf21ec.css"
+    ],
+    "file": "assets/_...all_-c712a69b.js",
+    "imports": [
+      "_404-5a708e65.js",
+      "_VImg-571ed956.js",
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/[...all].vue"
+  },
+  "resources/js/pages/auth/login.css": {
+    "file": "assets/login-9edb137f.css",
+    "src": "resources/js/pages/auth/login.css"
+  },
+  "resources/js/pages/auth/login.vue": {
+    "css": [
+      "assets/login-9edb137f.css"
+    ],
+    "file": "assets/login-6b03871f.js",
+    "imports": [
+      "_VAvatar-e4849550.js",
+      "resources/js/main.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VInput-bf2fd736.js",
+      "_VTextField-4a700095.js",
+      "_VImg-571ed956.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/auth/login.vue"
+  },
+  "resources/js/pages/auth/register.css": {
+    "file": "assets/register-522383dc.css",
+    "src": "resources/js/pages/auth/register.css"
+  },
+  "resources/js/pages/auth/register.vue": {
+    "css": [
+      "assets/register-522383dc.css"
+    ],
+    "file": "assets/register-9291666d.js",
+    "imports": [
+      "_VAvatar-e4849550.js",
+      "resources/js/main.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VInput-bf2fd736.js",
+      "_VTextField-4a700095.js",
+      "_VImg-571ed956.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/auth/register.vue"
+  },
+  "resources/js/pages/auth/unauthorized.css": {
+    "file": "assets/_...all_-2baf21ec.css",
+    "src": "resources/js/pages/auth/unauthorized.css"
+  },
+  "resources/js/pages/auth/unauthorized.vue": {
+    "css": [
+      "assets/_...all_-2baf21ec.css"
+    ],
+    "file": "assets/unauthorized-98c11eff.js",
+    "imports": [
+      "_404-5a708e65.js",
+      "_VImg-571ed956.js",
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/auth/unauthorized.vue"
+  },
+  "resources/js/pages/user/dashboard.css": {
+    "file": "assets/dashboard-584d5ad3.css",
+    "src": "resources/js/pages/user/dashboard.css"
+  },
+  "resources/js/pages/user/dashboard.vue": {
+    "css": [
+      "assets/dashboard-584d5ad3.css"
+    ],
+    "file": "assets/dashboard-c982ebca.js",
+    "imports": [
+      "_VAvatar-e4849550.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "resources/js/main.js",
+      "_VImg-571ed956.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/user/dashboard.vue"
+  }
+}

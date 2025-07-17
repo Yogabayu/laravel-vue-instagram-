@@ -14,8 +14,6 @@
     <div id="app">
         <div id="loading-bg">
             <div class="loading-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo"
-                    style="width: 80px; height: 80px;" />
             </div>
 
             <div class="loading">
