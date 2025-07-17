@@ -5,6 +5,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\FindingController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,20 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 
     Route::middleware('auth:api')->group(function () {
-        Route::get('logout', [AuthController::class, 'logout']);
-        // route admin
+        Route::get('/me', [AuthController::class, 'me']);
+        Route::post('/logout', [AuthController::class, 'logout']);
 
-
-        //////// Route User \\\\\\\\\
-        Route::group(['middleware' => ['permission:create-users,view-users,update-users,delete-users']], function () {
-            Route::get('users', [UserController::class, 'getAllUser']);
-            Route::get('roles', [UserController::class, 'getAllrole']);
-            Route::delete('users/{id}', [UserController::class, 'deleteUser']);
-            Route::post('users', [UserController::class, 'addUser']);
-            Route::get('userPermission/{id}', [UserController::class, 'userPermission']);
-            Route::post('updateUser', [UserController::class, 'updateUser']);
+        Route::group(['prefix' => 'post'], function () {
+            Route::get('random', [PostController::class, 'randomPost']);
+            Route::post('create', [PostController::class, 'addPost']);
+            Route::post('{id}/like', [PostController::class, 'like']);
         });
     });
 });

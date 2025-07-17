@@ -6,10 +6,23 @@ const router = createRouter({
     {
       path: "/",
       component: () => import("../layouts/blank.vue"),
-        children: [
+      children: [
         {
           path: "",
           component: () => import("../pages/user/dashboard.vue"),
+        },
+      ],
+      beforeEnter: (to, from, next) => {
+        checkLogin(next);
+      },
+    },
+    {
+      path: "/register",
+      component: () => import("../layouts/blank.vue"),
+      children: [
+        {
+          path: "",
+          component: () => import("../pages/auth/register.vue"),
         },
       ],
     },
@@ -25,8 +38,8 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userToken = localStorage.getItem("userToken");
 
-        if (userToken ) {
-            next("/dashboard");
+        if (userToken) {
+          next("/dashboard");
         } else {
           next();
         }
@@ -56,19 +69,19 @@ const router = createRouter({
     // authenticated
 
     //admin
-    // {
-    //   path: "/dashboard",
-    //   component: () => import("../layouts/admin/default.vue"),
-    //   children: [
-    //     {
-    //       path: "",
-    //       component: () => import("../pages/admin/dashboard.vue"),
-    //       beforeEnter: (to, from, next) => {
-    //         checkAdminLogin(next);
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      path: "/dashboard",
+      component: () => import("../layouts/admin/default.vue"),
+      children: [
+        {
+          path: "",
+          component: () => import("../pages/user/dashboard.vue"),
+          beforeEnter: (to, from, next) => {
+            checkLogin(next);
+          },
+        },
+      ],
+    },
     // {
     //   path: "/users",
     //   component: () => import("../layouts/admin/default.vue"),
@@ -113,7 +126,7 @@ const router = createRouter({
     //   component: () => import("../layouts/admin/default.vue"),
     //   children: [
     //     {
-    //       path: "",  
+    //       path: "",
     //       name: "performance-overview",
     //       component: () => import("../pages/admin/performance/index.vue"),
     //       beforeEnter: (to, from, next) => {
@@ -121,7 +134,7 @@ const router = createRouter({
     //       },
     //     },
     //     {
-    //       path: "analytics", 
+    //       path: "analytics",
     //       name: "performance-analytics",
     //       component: () => import("../pages/admin/performance/index.vue"),
     //       beforeEnter: (to, from, next) => {
@@ -150,39 +163,11 @@ const router = createRouter({
 
 function checkLogin(next) {
   const userToken = localStorage.getItem("userToken");
-  if (userToken) {
-    next();
-  } else {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userData");
-
-    alert("You need to login to access this page.");
-    next("/login");
-  }
-}
-
-function checkAdminLogin(next) {
-  const userToken = localStorage.getItem("userToken");
   const userData = JSON.parse(localStorage.getItem("userData"));
   if (userToken) {
     next();
   } else {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-    Toast.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Silahkan Login ulang",
-    });
+    next("/login");
   }
 }
 

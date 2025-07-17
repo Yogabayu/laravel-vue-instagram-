@@ -1,7 +1,7 @@
 export const staticPrimaryColor = '#696CFF'
 
 const theme = {
-  defaultTheme: 'light',
+  defaultTheme: 'dark',
   themes: {
     light: {
       dark: false,
@@ -65,9 +65,9 @@ const theme = {
         'warning': '#FFAB00',
         'on-warning': '#fff',
         'error': '#FF3E1D',
-        'background': '#232333',
-        'on-background': '#DBDBEB',
-        'surface': '#2B2C40',
+        'background': '#121212',
+        'on-background': '#121212',
+        'surface': '#121212',
         'on-surface': '#DBDBEB',
         'grey-50': '#2A2E42',
         'grey-100': '#444463',

@@ -22,10 +22,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'area_id',
-        'name',
+        'username',
         'email',
         'password',
+        'full_name',
+        'profile_picture',
+        'bio',
     ];
 
     /**
@@ -47,9 +49,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class);
-    }
 }
