@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
             Route::get('random', [PostController::class, 'randomPost']);
             Route::post('create', [PostController::class, 'addPost']);
             Route::post('{id}/like', [PostController::class, 'like']);
+            Route::post('{id}/comment', [PostController::class, 'comment']);
         });
     });
 });

@@ -231,13 +231,14 @@ export default {
           </div>
         </div>
       </v-container>
+
       <v-dialog v-model="postDialog" max-width="900px" persistent>
         <v-card class="bg-black text-white">
           <v-card-title class="d-flex align-center">
             <v-btn variant="text" @click="postDialog = false" class="mr-2">
               <v-icon size="20">mdi-arrow-left</v-icon>
             </v-btn>
-            <span class="text-h6 font-weight-bold">Create new post</span>
+            <span class="text-h6 font-weight-bold text-white">Create new post</span>
             <v-spacer></v-spacer>
             <v-btn
               variant="text"

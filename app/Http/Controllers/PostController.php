@@ -12,7 +12,7 @@ class PostController extends Controller
     public function randomPost()
     {
         try {
-            $post = Post::with('user', 'likes', 'comments')->where('visibility', 'public')->orderBy('created_at', 'desc')->limit(10)->inRandomOrder()->get();
+            $post = Post::with('user', 'likes', 'comments', 'comments.user')->where('visibility', 'public')->orderBy('created_at', 'desc')->limit(10)->inRandomOrder()->get();
             return ResponseHelper::successRes("success get post", $post);
         } catch (\Throwable $th) {
             Log::error($th);
@@ -59,5 +59,24 @@ class PostController extends Controller
         ]);
 
         return ResponseHelper::successRes("liked post", $post);
+    }
+
+    public function comment(Request $request, $id)
+    {
+        try {
+            $post = Post::findOrFail($id);
+
+            $comment = $post->comments()->create([
+                'post_id' => $id,
+                'user_id' => auth()->id(),
+                'comment_text' => $request->comment,
+            ]);
+
+            $comment->load('user');
+
+            return ResponseHelper::successRes("comment added", $comment);
+        } catch (\Throwable $th) {
+            return ResponseHelper::errorRes($th->getMessage());
+        }
     }
 }

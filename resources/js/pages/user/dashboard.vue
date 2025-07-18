@@ -63,16 +63,6 @@
             :alt="post.caption"
             class="post-image"
           />
-
-          <!-- <div class="post-overlay-text" v-if="post.overlayText">
-            {{ post.overlayText }}
-          </div> -->
-
-          <div class="carousel-nav">
-            <v-btn icon size="small" class="nav-btn nav-prev" variant="text">
-              <v-icon size="20">mdi-chevron-left</v-icon>
-            </v-btn>
-          </div>
         </div>
 
         <!-- Post Actions -->
@@ -87,7 +77,13 @@
             >
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-            <v-btn icon size="small" variant="text" class="mr-2">
+            <v-btn
+              icon
+              size="small"
+              variant="text"
+              class="mr-2"
+              @click="openComment(post)"
+            >
               <v-icon>mdi-comment-outline</v-icon>
             </v-btn>
             <v-btn icon size="small" variant="text" class="mr-2">
@@ -113,6 +109,129 @@
       </div>
     </div>
   </div>
+
+  <v-dialog v-model="isComment" height="2000px" scrollable>
+    <v-card class="bg-black text-white rounded-xl overflow-hidden">
+      <v-row no-gutters>
+        <v-col
+          cols="7"
+          class="d-flex align-center justify-center bg-grey-darken-4"
+        >
+          <img
+            v-if="post.image_path && post.image_path.startsWith('posts/')"
+            :src="basePhoto + post.image_path"
+            :alt="post.caption"
+            class="w-100"
+            max-height="100%"
+            cover
+            style="aspect-ratio: 1 / 1; object-fit: contain"
+          />
+
+          <img
+            v-else-if="post.image_path && post.image_path.startsWith('images/')"
+            :src="basePhoto + post.image_path"
+            :alt="post.caption"
+            class="w-100"
+            max-height="100%"
+            cover
+            style="aspect-ratio: 1 / 1; object-fit: contain"
+          />
+
+          <img
+            v-else
+            :src="
+              'https://i.pravatar.cc/150?u=' + (post.image_path || 'default')
+            "
+            :alt="post.caption"
+            class="w-100"
+            max-height="100%"
+            cover
+            style="aspect-ratio: 1 / 1; object-fit: contain"
+          />
+        </v-col>
+        <v-col cols="5" class="bg-black pa-4">
+          <!-- Informasi post -->
+          <v-card-text class="pa-4">
+            <!-- Header post -->
+            <div class="d-flex flex-row align-center mb-3">
+              <v-avatar size="40" class="mr-3">
+                <v-img
+                  :src="'https://i.pravatar.cc/150?u=' + post.user?.email"
+                ></v-img>
+              </v-avatar>
+              <div class="text-subtitle-2 font-weight-bold text-white">
+                {{ post.user?.username }}
+              </div>
+              <v-spacer></v-spacer>
+              <v-icon>mdi-dots-horizontal</v-icon>
+            </div>
+
+            <!-- Caption -->
+            <div class="mb-3">
+              <span class="font-weight-bold mr-2">{{ post.user?.name }}</span>
+              {{ post.caption }}
+            </div>
+            <div class="post-actions">
+              <div class="d-flex align-center">
+                <v-btn
+                  icon
+                  size="small"
+                  variant="text"
+                  class="mr-2"
+                  @click="likesPost(post)"
+                >
+                  <v-icon color="white">mdi-heart-outline</v-icon>
+                </v-btn>
+                <v-btn
+                  icon
+                  size="small"
+                  variant="text"
+                  class="mr-2"
+                  @click="openComment(post)"
+                >
+                  <v-icon color="white">mdi-comment-outline</v-icon>
+                </v-btn>
+                <v-btn icon size="small" variant="text" class="mr-2">
+                  <v-icon color="white">mdi-send-outline</v-icon>
+                </v-btn>
+              </div>
+              <v-btn icon size="small" variant="text">
+                <v-icon color="white">mdi-bookmark-outline</v-icon>
+              </v-btn>
+            </div>
+
+            <div class="post-stats">
+              <div class="likes-count">{{ post.likes.length }} likes</div>
+              <div class="view-comments" v-if="post.comments > 0">
+                View all {{ post.comments }} comments
+              </div>
+            </div>
+            <!-- Komentar -->
+            <div
+              v-for="comment in post.comments"
+              :key="comment.id"
+              class="mb-2"
+            >
+              <span class="font-weight-bold mr-2">{{ comment.user.username }}</span>
+              {{ comment.comment_text }}
+            </div>
+
+            <!-- Form komentar -->
+            <v-text-field
+              v-model="newComment"
+              placeholder="Tambahkan komentar..."
+              dense
+              hide-details
+              variant="plain"
+              class="text-white"
+              append-inner-icon="mdi-send"
+              @click:append-inner="sendComment"
+            ></v-text-field>
+          </v-card-text>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -187,6 +306,9 @@ export default {
         },
       ],
       basePhoto: this.$basephoto,
+      isComment: false,
+      post: null,
+      newComment: "",
     };
   },
   methods: {
@@ -216,8 +338,29 @@ export default {
         } else {
           post.likes.push({ user_id: currentUser.id });
         }
+        
+        // this.$showToast("success", "Success", response.data.message);
+      } catch (error) {
+        this.$showToast(
+          "warning",
+          "Warning",
+          error.response?.data?.message || "Gagal memproses permintaan"
+        );
+      }
+    },
 
-        this.$showToast("success", "Success", response.data.message);
+    openComment(post) {
+      this.post = post;
+      this.isComment = true;
+    },
+
+    async sendComment() {
+      try {
+        const response = await mainURL.post(`/post/${this.post.id}/comment`, {
+          comment: this.newComment,
+        });
+        this.post.comments.push(response.data.data);
+        this.newComment = "";
       } catch (error) {
         this.$showToast(
           "warning",

@@ -95,10 +95,18 @@ class AuthController extends Controller
                 'username' => 'required|unique:users',
                 'password' => 'required',
                 'fullName' => 'required',
+            ], [
+                'email.required' => 'Email harus diisi',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+                'username.required' => 'Username harus diisi',
+                'username.unique' => 'Username sudah terdaftar',
+                'password.required' => 'Password harus diisi',
+                'fullName.required' => 'Nama lengkap harus diisi',
             ]);
 
             if ($validator->fails()) {
-                return ResponseHelper::errorRes("Data tidak valid | adalah data yang sama");
+                return ResponseHelper::errorRes($validator->errors());
             }
 
             $user = User::create([

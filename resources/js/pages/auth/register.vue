@@ -4,11 +4,13 @@
       <VCol cols="12" sm="8" md="4">
         <VCard class="login-card text-center pa-6">
           <div class="login-logo logo-text">Instagram</div>
-          <div class="text-grey-lighten-1 mb-4">Sign up to see photos and videos from your friends.</div>
+          <div class="text-grey-lighten-1 mb-4">
+            Sign up to see photos and videos from your friends.
+          </div>
 
           <div
             class="d-flex flex-row align-center justify-center text-facebook mb-4"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           >
             <v-icon class="me-1">mdi-facebook</v-icon>
             Log in with Facebook
@@ -68,14 +70,15 @@
             />
 
             <div class="text-caption text-grey-lighten-1 mb-4 text-center">
-              People who use our service may have uploaded your contact information to Instagram. 
+              People who use our service may have uploaded your contact
+              information to Instagram.
               <a href="#" class="text-white">Learn More</a>
             </div>
 
             <div class="text-caption text-grey-lighten-1 mb-4 text-center">
-              By signing up, you agree to our 
-              <a href="#" class="text-white">Terms</a>, 
-              <a href="#" class="text-white">Privacy Policy</a> and 
+              By signing up, you agree to our
+              <a href="#" class="text-white">Terms</a>,
+              <a href="#" class="text-white">Privacy Policy</a> and
               <a href="#" class="text-white">Cookies Policy</a>.
             </div>
 
@@ -98,8 +101,10 @@
             >Log in</RouterLink
           >
         </VCard>
-        
-        <div class="d-flex flex-row align-center justify-center mt-4 text-caption text-white">
+
+        <div
+          class="d-flex flex-row align-center justify-center mt-4 text-caption text-white"
+        >
           <span>Get the App.</span>
           <div>
             <v-icon class="mx-1">mdi-apple</v-icon>
@@ -127,15 +132,15 @@ export default {
     };
   },
   mounted() {
-    const link = document.createElement('link')
-    link.href = 'https://fonts.cdnfonts.com/css/billabong'
-    link.rel = 'stylesheet'
-    link.id = 'billabong-font'
-    document.head.appendChild(link)
+    const link = document.createElement("link");
+    link.href = "https://fonts.cdnfonts.com/css/billabong";
+    link.rel = "stylesheet";
+    link.id = "billabong-font";
+    document.head.appendChild(link);
   },
   beforeUnmount() {
-    const fontLink = document.getElementById('billabong-font')
-    if (fontLink) document.head.removeChild(fontLink)
+    const fontLink = document.getElementById("billabong-font");
+    if (fontLink) document.head.removeChild(fontLink);
   },
   methods: {
     async register() {
@@ -155,9 +160,19 @@ export default {
           );
           this.$router.push("/login");
         }
-      } catch (error) {        
-        const msg = error.message;
-        this.$showToast("error", "Oops", msg);
+      } catch (error) {
+        const msg = error.response?.data?.message || "Registrasi gagal.";
+        if (msg) {
+          // Loop semua error dan tampilkan
+          Object.values(msg).forEach((fieldErrors) => {
+            fieldErrors.forEach((msg) => {
+              this.$showToast("warning", "Validasi", msg);
+            });
+          });
+        } else {
+          const msg = error.response?.data?.message || "Terjadi kesalahan.";
+          this.$showToast("warning", "Error", msg);
+        }
       }
     },
   },
@@ -166,7 +181,7 @@ export default {
 
 <style scoped>
 .logo-text {
-  font-family: 'Billabong', sans-serif;
+  font-family: "Billabong", sans-serif;
   font-size: 48px;
 }
 .login-wrapper {
@@ -191,7 +206,7 @@ export default {
   height: 1px;
   background-color: #262626;
 }
-.text-facebook{
+.text-facebook {
   color: #3b5998;
 }
 </style>

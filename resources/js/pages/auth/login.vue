@@ -8,7 +8,7 @@
           <VForm @submit.prevent="login" class="mt-4">
             <VTextField
               v-model="form.useremail"
-              label="Phone number, username, or email"
+              label="Username, or email"
               dense
               hide-details
               outlined
