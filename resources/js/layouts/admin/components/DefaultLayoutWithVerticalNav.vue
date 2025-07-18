@@ -70,16 +70,31 @@ export default {
         if (this.$refs.imageInput) {
           this.$refs.imageInput.value = null;
         }
-        this.$showToast(
-            "success",
-            "Berhasil",
-            "Post berhasil dibuat..."
-          );
+        this.$showToast("success", "Berhasil", "Post berhasil dibuat...");
       } catch (error) {
         console.error("Gagal posting:", error.response?.data || error.message);
         alert(
           "Gagal mengirim post: " +
             (error.response?.data?.message || error.message)
+        );
+      }
+    },
+
+    async logoutNow() {
+      try {
+        const response = await mainURL.post("/logout");
+
+        if (response.status == 200) {
+          localStorage.clear();
+          this.$router.push("/login");
+
+          this.$showToast("success", "Logout", "Berhasil logout");
+        }
+      } catch (error) {
+        this.$showToast(
+          "warning",
+          "Warning",
+          error.response?.data?.message || "Gagal memproses permintaan"
         );
       }
     },
@@ -155,6 +170,11 @@ export default {
           @click="addPost"
           prepend-icon="mdi-plus-outline"
           title="Create"
+        />
+        <v-list-item
+          @click="logoutNow"
+          prepend-icon="mdi-logout"
+          title="Logout"
         />
       </v-list>
     </v-navigation-drawer>
@@ -238,7 +258,9 @@ export default {
             <v-btn variant="text" @click="postDialog = false" class="mr-2">
               <v-icon size="20">mdi-arrow-left</v-icon>
             </v-btn>
-            <span class="text-h6 font-weight-bold text-white">Create new post</span>
+            <span class="text-h6 font-weight-bold text-white"
+              >Create new post</span
+            >
             <v-spacer></v-spacer>
             <v-btn
               variant="text"
