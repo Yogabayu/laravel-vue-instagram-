@@ -12,4 +12,9 @@ php artisan passport:install
 php artisan key:generate
 php artisan storage:link
 php artisan optimize
+
+
+cara running:
+
+php artisan serve
 ```
